@@ -103,10 +103,15 @@ header {
 .case-file {
     width: 530px;
     max-width: 90%;
+    height: 92px;
+    box-sizing: border-box;
+
     margin: 55px auto 35px auto;
+    padding: 15px 24px;
 
-    padding: 10px 24px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background: rgba(20, 20, 20, 0.75);
 
     border: 1px solid #292929;
