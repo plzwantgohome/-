@@ -263,8 +263,6 @@ def play_story(story_index):
     name, text = dialogues[current]
     show_dialogue(name, text)
 
-    st.caption(f"{current + 1} / {len(dialogues)}")
-
     if current < len(dialogues) - 1:
         if st.button("다음 ▶", key=f"story_next_{story_index}"):
             st.session_state["chapter1_dialogue"] += 1
@@ -322,8 +320,6 @@ def investigate():
 
         name, text = dialogues[current]
         show_dialogue(name, text)
-
-        st.caption(f"{current + 1} / {len(dialogues)}")
 
         if current < len(dialogues) - 1:
             if st.button("다음 ▶", key="interview_next"):
