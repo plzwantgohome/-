@@ -1,96 +1,128 @@
-import streamlit as st
-from html import escape
+    .c1-end {background:#101010;border:1px solid #383838;border-radius:9px;
+        padding:75px 25px;text-align:center;color:#eee;}
+    .c1-end-small {color:#888;letter-spacing:4px;font-size:12px;margin-bottom:19px;}
+    .c1-end-title {font-size:31px;font-weight:800;margin-bottom:16px;}
+    .c1-end-text {font-size:14px;color:#aaa;line-height:2;}
+    </style>
+    """)
+
+
+def show_stage(location):
+    st.html(f"""
+    <div class="c1-wrap">
+        <div class="c1-heading">CHAPTER 01 · 학교의 의뢰</div>
+        <div class="c1-stage">
+            <div class="c1-window"></div>
+            <div class="c1-board"></div>
+            <div class="c1-desk"></div>
+            <div class="c1-location">{escape(location)}</div>
+        </div>
+    </div>
+    """)
+
+
+def show_dialogue(speaker, words):
+    st.html(f"""
+    <div class="c1-wrap">
+        <div class="c1-dialogue">
+            <div class="c1-speaker">{escape(speaker)}</div>
+            <div class="c1-words">{escape(words)}</div>
+        </div>
+    </div>
+    """)
+
+
+def play_dialogues(lines, next_phase, location):
+    show_stage(location)
+    index = st.session_state["c1_v2_line"]
+    speaker, words = lines[index]
+    show_dialogue(speaker, words)
+
+    if index < len(lines) - 1:
+        if st.button("다음  ▶", key="c1_next", use_container_width=True):
+            st.session_state["c1_v2_line"] += 1
+            st.rerun()
+    else:
+        if st.button("계속 진행  ▶", key="c1_continue", use_container_width=True):
+            move_to(next_phase)
 
 
 # ==========================================
-# CHAPTER 1. 학교의 의뢰
+# 조사 자료 열람 (클릭 상호작용)
 # ==========================================
 
-ARRIVAL = [
-    ("나레이션", "시험 자료 유출 사건이 발생한 다음 날 오후.\n나는 학교 측의 요청을 받고 교문을 통과했다."),
-    ("나레이션", "복도는 평소와 다름없이 소란스러웠지만, 교무실 앞에는 묘한 긴장감이 감돌았다."),
-    ("학교 관계자", "와 주셔서 감사합니다. 저는 이번 사건의 조사 업무를 담당하고 있습니다."),
-    ("조사관", "먼저 사건의 경위부터 듣고 싶습니다."),
-    ("학교 관계자", "자세한 내용은 회의실에서 설명드리겠습니다. 이쪽으로 오시죠."),
-]
-
-BRIEFING = [
-    ("학교 관계자", "어젯밤 0시 17분, 학교 익명 게시판에 시험지 사진이 올라왔습니다."),
-    ("학교 관계자", "게시물은 0시 20분에 삭제됐지만, 이미 화면을 저장한 학생들이 있었습니다."),
-    ("조사관", "사진에 나온 자료가 실제 시험지라는 건 확인됐습니까?"),
-    ("학교 관계자", "네. 내일이 아니라 오늘 치를 예정이었던 중간고사 문제와 일치했습니다."),
-    ("학교 관계자", "시험지 보관 서랍은 잠겨 있었고, 교무실에서 침입 흔적도 발견되지 않았습니다."),
-    ("학교 관계자", "시험 자료가 저장된 컴퓨터에서도 현재까지 비정상적인 접근 기록은 확인되지 않았습니다."),
-    ("조사관", "보관 장소에 이상이 없다고 해서 자료가 다른 곳에서 노출되지 않았다는 뜻은 아니겠죠."),
-    ("학교 관계자", "맞습니다. 그래서 자료가 이동한 과정까지 확인해 주셨으면 합니다."),
-    ("학교 관계자", "학교에 남아 있던 학생들의 활동 내역을 살펴보고, 우선 면담할 다섯 명을 추렸습니다."),
-    ("조사관", "명단에 올랐다는 이유만으로 사건과 관계가 있다고 볼 수는 없습니다."),
-    ("학교 관계자", "물론입니다. 관련 학생들에게는 면담 목적을 설명하고 동의를 받아 진행하려고 합니다."),
-    ("조사관", "우선 제출된 자료부터 확인하겠습니다."),
-]
-
-CLOSING = [
-    ("나레이션", "사건 보고서와 다섯 명의 명단을 차례로 확인했다."),
-    ("조사관", "지금 단계에서 확인된 건 시험지 사진이 게시됐다는 사실뿐입니다."),
-    ("조사관", "누가, 어디에서, 어떤 경로로 사진을 얻었는지부터 밝혀야겠군요."),
-    ("학교 관계자", "면담에 응한 학생들은 지정된 교실에서 기다리고 있습니다."),
-    ("나레이션", "나는 사건 파일을 덮고 회의실 문을 향해 걸어갔다."),
-    ("나레이션", "복도 끝 교실 앞에 도착하자, 안에서 낮은 목소리들이 새어 나왔다."),
-    ("조사관", "그럼, 한 명씩 이야기를 들어보도록 하죠."),
-]
-
-RECORDS = {
-    "사건 개요 보고서": [
-        "발생 시각: 00:17",
-        "게시물 삭제: 00:20",
-        "발생 장소: 학교 익명 게시판",
-        "확인된 내용: 게시된 사진이 실제 중간고사 시험지 일부와 일치",
-        "참고: 삭제 전 화면을 저장한 학생들이 있어 게시물 내용 일부가 보존됨",
-    ],
-    "시험 자료 보관 현황": [
-        "시험지 보관 서랍: 잠금 상태 확인",
-        "교무실 침입 흔적: 현재까지 확인되지 않음",
-        "시험 자료 저장 컴퓨터: 현재까지 비정상적인 접근 기록 없음",
-        "주의: 이는 자료의 유출 경로가 없었다는 뜻은 아님",
-    ],
-    "우선 면담 대상자": [
-        "지현: 야간 자율학습 후 교무실 주변 복도를 지난 것으로 파악됨",
-        "혜린: 수행평가 자료를 준비하며 늦게까지 학교에 남아 있었음",
-        "예주: 동아리 자료를 정리한 뒤 귀가함",
-        "유주: 방과 후 교내에서 다른 학생을 기다렸음",
-        "다인: 발표 자료 출력을 위해 인쇄실을 이용한 것으로 파악됨",
-        "※ 활동 내용은 초기 기록과 진술을 바탕으로 정리한 것. 사건 관여를 의미하지 않음",
-    ],
-}
-
-
-# ==========================================
-# 진행 상태 (기존 챕터 코드와 충돌하지 않도록 별도 키 사용)
-# ==========================================
-
-def init_chapter1():
-    if "c1_v2_phase" not in st.session_state:
-        st.session_state["c1_v2_phase"] = "arrival"
-        st.session_state["c1_v2_line"] = 0
-        st.session_state["c1_v2_selected"] = None
-        st.session_state["c1_v2_checked"] = []
-        st.session_state["c1_v2_complete"] = False
-
-
-def move_to(phase):
-    st.session_state["c1_v2_phase"] = phase
-    st.session_state["c1_v2_line"] = 0
-    st.rerun()
-
-
-# ==========================================
-# 화면 디자인 (main.py 수정 불필요)
-# ==========================================
-
-def chapter1_style():
+def show_records():
     st.html("""
-    <style>
-    .c1-wrap {max-width: 900px; margin: 12px auto 0;}
-    .c1-heading {text-align:center; color:#ddd; letter-spacing:5px;
-        font-size:12px; margin: 9px 0 16px;}
-    .c1-stage {height:330px; position:relative; overflow:hidden;
+    <div class="c1-wrap">
+        <div class="c1-heading">CHAPTER 01 · 학교의 의뢰</div>
+        <div class="c1-record-heading">사건 자료 열람</div>
+        <div class="c1-record-caption">학교 측이 제출한 자료입니다. 원하는 문서를 눌러 내용을 확인하세요.</div>
+    </div>
+    """)
+
+    for index, title in enumerate(RECORDS, 1):
+        checked = title in st.session_state["c1_v2_checked"]
+        label = f"✓  {title}" if checked else f"{index:02d}  {title}"
+        if st.button(label, key=f"c1_record_{index}", use_container_width=True):
+            st.session_state["c1_v2_selected"] = title
+            if not checked:
+                st.session_state["c1_v2_checked"].append(title)
+            st.rerun()
+
+    selected = st.session_state["c1_v2_selected"]
+    if selected:
+        items = "".join(
+            f'<div class="c1-paper-item">{escape(item)}</div>'
+            for item in RECORDS[selected]
+        )
+        st.html(f"""
+        <div class="c1-wrap">
+            <div class="c1-paper">
+                <div class="c1-paper-title">{escape(selected)}</div>
+                {items}
+            </div>
+        </div>
+        """)
+
+    if len(st.session_state["c1_v2_checked"]) == len(RECORDS):
+        if st.button("자료 확인 완료  ▶", key="c1_records_done", use_container_width=True):
+            move_to("closing")
+    else:
+        st.info("세 가지 자료를 모두 확인하면 다음 장면으로 진행할 수 있습니다.")
+
+
+# ==========================================
+# 챕터 1 엔딩 (챕터 2는 연결하지 않음)
+# ==========================================
+
+def show_ending():
+    st.session_state["c1_v2_complete"] = True
+    st.html("""
+    <div class="c1-wrap">
+        <div class="c1-end">
+            <div class="c1-end-small">CHAPTER 01 COMPLETE</div>
+            <div class="c1-end-title">학교의 의뢰</div>
+            <div class="c1-end-text">
+                사건 자료 확인 완료<br>
+                다음 조사: 다섯 명의 증언<br><br>
+                TO BE CONTINUED
+            </div>
+        </div>
+    </div>
+    """)
+    st.caption("챕터 2는 아직 연결하지 않았습니다.")
+
+
+# ==========================================
+# main.py에서 호출하는 함수
+# ==========================================
+
+def show_chapter1():
+    init_chapter1()
+    chapter1_style()
+
+    phase = st.session_state["c1_v2_phase"]
+
+    if phase == "arrival":
+        play_dialogues(ARRIVAL, "briefing", "학교 본관 · 복도")
+    elif phase == "briefing":
