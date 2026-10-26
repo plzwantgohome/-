@@ -89,7 +89,7 @@ def show_chapter2():
         if step < len(scene2) - 1:
 
             if st.button(
-                "💬 " + scene2[step]["choice"],
+                scene2[step]["choice"],
                 key="chapter2_choice_" + str(step)
             ):
                 st.session_state["chapter2_scene2_step"] += 1
