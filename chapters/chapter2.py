@@ -10,8 +10,8 @@ def show_chapter2():
     st.caption("CHAPTER 02")
     st.title("다섯 명의 증언")
     st.divider()
-    st.caption("SCENE 01 · 면담실")
 
+    # SCENE 01 · 면담실
     scene1 = [
         "복도를 따라 걸어가자 작은 면담실이 나타났다.",
 
@@ -30,10 +30,52 @@ def show_chapter2():
         '"안녕하세요. 지현이라고 합니다."'
     ]
 
-    for i in range(st.session_state["chapter2_line"] + 1):
-        st.markdown(scene1[i])
+    # SCENE 02 · 첫 번째 면담
+    scene2 = [
+        "지현은 조금 긴장한 표정으로 의자에 앉았다.",
 
-    if st.session_state["chapter2_line"] < len(scene1) - 1:
-        if st.button("다음 ▶", key="chapter2_next"):
-            st.session_state["chapter2_line"] += 1
-            st.rerun()
+        '**탐정:** "시간 내주셔서 감사합니다. 몇 가지 확인할 사항이 있어서요."',
+
+        '**지현:** "네. 그런데 제가 정말 의심받고 있는 건가요?"',
+
+        '**탐정:** "아직 누구도 범인이라고 단정하지 않았습니다. 사건 당일 무슨 일이 있었는지 확인하려는 겁니다."',
+
+        "지현은 잠시 망설이다가 고개를 끄덕였다.",
+
+        '**지현:** "알겠어요. 무엇부터 말씀드리면 될까요?"'
+    ]
+
+    line = st.session_state["chapter2_line"]
+
+    # SCENE 01 진행
+    if line < len(scene1):
+
+        st.caption("SCENE 01 · 면담실")
+
+        for i in range(line + 1):
+            st.markdown(scene1[i])
+
+        if line == len(scene1) - 1:
+            if st.button("면담 시작 ▶"):
+                st.session_state["chapter2_line"] += 1
+                st.rerun()
+
+        else:
+            if st.button("다음 ▶"):
+                st.session_state["chapter2_line"] += 1
+                st.rerun()
+
+    # SCENE 02 진행
+    else:
+
+        st.caption("SCENE 02 · 첫 번째 면담")
+
+        scene2_line = line - len(scene1)
+
+        for i in range(scene2_line + 1):
+            st.markdown(scene2[i])
+
+        if scene2_line < len(scene2) - 1:
+            if st.button("다음 ▶"):
+                st.session_state["chapter2_line"] += 1
+                st.rerun()
