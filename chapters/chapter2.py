@@ -7,8 +7,9 @@ def show_chapter2():
     if "chapter2_line" not in st.session_state:
         st.session_state["chapter2_line"] = 0
 
-    st.title("CHAPTER 2")
-    st.subheader("다섯 명의 증언")
+    st.caption("CHAPTER 02")
+    st.title("다섯 명의 증언")
+    st.divider()
     st.caption("SCENE 01 · 면담실")
 
     scene1 = [
