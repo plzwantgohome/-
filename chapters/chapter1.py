@@ -251,4 +251,14 @@ def show_chapter1():
             "이제 본격적인 조사를 시작할 시간이었다."
         )
 
-    st.caption("다음 장면 : 학생 조사")
+    
+    st.caption("다음 챕터 : 다섯 명의 증언")
+
+    if st.button(
+        "CHAPTER 2로 이동 →",
+        key="chapter1_to_chapter2",
+        use_container_width=True
+    ):
+        st.session_state["page"] = "chapter2"
+        st.rerun()
+
