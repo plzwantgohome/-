@@ -7,6 +7,9 @@ def show_chapter2():
     if "chapter2_line" not in st.session_state:
         st.session_state["chapter2_line"] = 0
 
+    if "chapter2_scene2_step" not in st.session_state:
+        st.session_state["chapter2_scene2_step"] = 0
+
     st.caption("CHAPTER 02")
     st.title("다섯 명의 증언")
     st.divider()
@@ -32,17 +35,20 @@ def show_chapter2():
 
     # SCENE 02 · 첫 번째 면담
     scene2 = [
-        "지현은 조금 긴장한 표정으로 의자에 앉았다.",
+        {
+            "text": "지현은 조금 긴장한 표정으로 의자에 앉았다.",
+            "choice": "시간 내주셔서 감사합니다. 몇 가지 확인할 사항이 있어서요."
+        },
 
-        '**탐정:** "시간 내주셔서 감사합니다. 몇 가지 확인할 사항이 있어서요."',
+        {
+            "text": '**지현:** "네. 그런데 제가 정말 의심받고 있는 건가요?"',
+            "choice": "아직 누구도 범인이라고 단정하지 않았습니다. 사건 당일 무슨 일이 있었는지 확인하려는 겁니다."
+        },
 
-        '**지현:** "네. 그런데 제가 정말 의심받고 있는 건가요?"',
-
-        '**탐정:** "아직 누구도 범인이라고 단정하지 않았습니다. 사건 당일 무슨 일이 있었는지 확인하려는 겁니다."',
-
-        "지현은 잠시 망설이다가 고개를 끄덕였다.",
-
-        '**지현:** "알겠어요. 무엇부터 말씀드리면 될까요?"'
+        {
+            "text": '지현은 잠시 망설이다가 고개를 끄덕였다.\n\n**지현:** "알겠어요. 무엇부터 말씀드리면 될까요?"',
+            "choice": None
+        }
     ]
 
     line = st.session_state["chapter2_line"]
@@ -70,12 +76,21 @@ def show_chapter2():
 
         st.caption("SCENE 02 · 첫 번째 면담")
 
-        scene2_line = line - len(scene1)
+        step = st.session_state["chapter2_scene2_step"]
 
-        for i in range(scene2_line + 1):
-            st.markdown(scene2[i])
+        for i in range(step + 1):
+            st.markdown(scene2[i]["text"])
 
-        if scene2_line < len(scene2) - 1:
-            if st.button("다음 ▶"):
-                st.session_state["chapter2_line"] += 1
+            if i < step:
+                st.markdown(
+                    '**탐정:** "' + scene2[i]["choice"] + '"'
+                )
+
+        if step < len(scene2) - 1:
+
+            if st.button(
+                "💬 " + scene2[step]["choice"],
+                key="chapter2_choice_" + str(step)
+            ):
+                st.session_state["chapter2_scene2_step"] += 1
                 st.rerun()
