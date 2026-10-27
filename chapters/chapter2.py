@@ -14,18 +14,19 @@ def show_chapter2():
     st.title("다섯 명의 증언")
     st.divider()
         # 챕터 2 선택지 버튼 크기 조절
+        # 챕터 2 선택지 버튼 크기 조절
     st.html("""
     <style>
-    div[class*="st-key-chapter2_choice_"] div.stButton > button {
-        width: fit-content;
-        max-width: min(720px, 100%);
-        height: auto;
-        min-height: 55px;
-        padding: 12px 20px;
-        letter-spacing: 1px;
-        line-height: 1.6;
-        white-space: normal;
-        overflow-wrap: anywhere;
+    div[class*="st-key-chapter2_choice_"] button {
+        width: fit-content !important;
+        max-width: min(720px, 100%) !important;
+        height: auto !important;
+        min-height: 55px !important;
+        padding: 12px 20px !important;
+        letter-spacing: 1px !important;
+        line-height: 1.6 !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
     }
     </style>
     """)
