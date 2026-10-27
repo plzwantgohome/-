@@ -13,6 +13,22 @@ def show_chapter2():
     st.caption("CHAPTER 02")
     st.title("다섯 명의 증언")
     st.divider()
+        # 챕터 2 선택지 버튼 크기 조절
+    st.html("""
+    <style>
+    div[class*="st-key-chapter2_choice_"] div.stButton > button {
+        width: fit-content;
+        max-width: min(720px, 100%);
+        height: auto;
+        min-height: 55px;
+        padding: 12px 20px;
+        letter-spacing: 1px;
+        line-height: 1.6;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+    </style>
+    """)
 
     # SCENE 01 · 면담실
     scene1 = [
