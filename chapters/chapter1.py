@@ -251,7 +251,6 @@ def show_chapter1():
             "이제 본격적인 조사를 시작할 시간이었다."
         )
 
-    
     st.caption("다음 챕터 : 다섯 명의 증언")
 
     if st.button(
@@ -261,4 +260,3 @@ def show_chapter1():
     ):
         st.session_state["page"] = "chapter2"
         st.rerun()
-
