@@ -84,10 +84,10 @@ def show_chapter2():
 
                 if step < len(scene2) - 1:
 
-            selected = choose_dialogue(
-                [scene2[step]["choice"]],
-                "chapter2_choice_" + str(step)
-            )
+                    selected = choose_dialogue(
+                        [scene2[step]["choice"]],
+                        "chapter2_choice_" + str(step)
+                    )
 
             if selected is not None:
                 st.session_state["chapter2_scene2_step"] += 1
