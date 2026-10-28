@@ -69,6 +69,7 @@ def show_chapter2():
                 st.session_state["chapter2_line"] += 1
                 st.rerun()
 
+
     # SCENE 02 진행
     else:
 
@@ -82,12 +83,12 @@ def show_chapter2():
                     '**탐정:** "' + scene2[i]["choice"] + '"'
                 )
 
-                if step < len(scene2) - 1:
+        if step < len(scene2) - 1:
 
-                    selected = choose_dialogue(
-                        [scene2[step]["choice"]],
-                        "chapter2_choice_" + str(step)
-                    )
+            selected = choose_dialogue(
+                [scene2[step]["choice"]],
+                "chapter2_choice_" + str(step)
+            )
 
             if selected is not None:
                 st.session_state["chapter2_scene2_step"] += 1
