@@ -891,7 +891,6 @@ elif st.session_state["page"] == "prologue":
 # =========================================================
 
 elif st.session_state["page"] == "chapter1":
-    st.write("챕터 1 연결 성공")
     show_chapter1()
 elif st.session_state["page"] == "chapter2":
     show_chapter2()
