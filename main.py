@@ -191,7 +191,18 @@ div.stButton > button:hover {
 div.stButton > button:active {
     transform: translateY(1px);
 }
-
+/* 챕터 2 선택지 버튼만 크기 조절 */
+[class*="st-key-chapter2_choice_"] button {
+    width: fit-content !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 55px !important;
+    padding: 12px 20px !important;
+    letter-spacing: 1px !important;
+    line-height: 1.6 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+}
 
 /* 하단 문구 */
 .bottom-text {
