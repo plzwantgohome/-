@@ -1,6 +1,7 @@
 
 import streamlit as st
 
+from dialogue import choose_dialogue
 
 def show_chapter2():
 
@@ -82,11 +83,13 @@ def show_chapter2():
                     '**탐정:** "' + scene2[i]["choice"] + '"'
                 )
 
-        if step < len(scene2) - 1:
+                if step < len(scene2) - 1:
 
-            if st.button(
-                scene2[step]["choice"],
-                key="chapter2_choice_" + str(step)
-            ):
+            selected = choose_dialogue(
+                [scene2[step]["choice"]],
+                "chapter2_choice_" + str(step)
+            )
+
+            if selected is not None:
                 st.session_state["chapter2_scene2_step"] += 1
                 st.rerun()
