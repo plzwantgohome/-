@@ -1,6 +1,5 @@
 
 import streamlit as st
-
 from dialogue import choose_dialogue
 
 def show_chapter2():
