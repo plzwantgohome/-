@@ -4,258 +4,355 @@ from dialogue import choose_dialogue
 from ui import show_dialogue
 
 
-def show_chapter2_scene3():
-    # SCENE 03 · 지현의 진술
+# 챕터 2의 모든 장면과 대사
+SCENES = [
+    (
+        "SCENE 01 · 면담실",
+        [
+            ("나레이션", "복도를 따라 걸어가자 작은 면담실이 나타났다."),
+            ("나레이션", "문을 열자 낡은 책상 하나와 마주 보는 의자 두 개가 눈에 들어왔다."),
+            ("나레이션", "책상 위에는 학교에서 전달받은 사건 기록과 다섯 명의 학생 명단이 놓여 있었다."),
+            ("나레이션", "지현, 혜린, 예주, 유주, 다인. 모두 이번 사건의 조사 대상자들이었다."),
+            ("나레이션", "나는 명단을 다시 한번 살펴보았다. 다섯 명의 말이 모두 사실일까."),
+            ("나레이션", "그때 문밖에서 가벼운 노크 소리가 들렸다. 똑, 똑."),
+            ("나", '"들어오세요."'),
+            ("나레이션", "문이 열리고 한 여학생이 조심스럽게 안으로 들어왔다."),
+            ("지현", '"안녕하세요. 지현이라고 합니다."'),
+        ],
+    ),
 
-    if "chapter2_scene3_step" not in st.session_state:
-        st.session_state["chapter2_scene3_step"] = 0
+    (
+        "SCENE 02 · 지현과 첫 대화",
+        [
+            ("나레이션", "지현은 조금 긴장한 표정으로 의자에 앉았다."),
 
-    if "chapter2_scene3_phase" not in st.session_state:
-        st.session_state["chapter2_scene3_phase"] = "question"
+            {
+                "text": "지현이 자리에 앉았다. 먼저 어떤 말을 건넬까?",
+                "choices": [
+                    (
+                        "시간 내주셔서 감사합니다. 몇 가지 확인할 사항이 있어서요.",
+                        '"네. 그런데 제가 정말 의심받고 있는 건가요?"'
+                    ),
+                ],
+                "answer_speaker": "지현",
+            },
 
-    if "chapter2_scene3_selected" not in st.session_state:
-        st.session_state["chapter2_scene3_selected"] = None
+            {
+                "text": "지현은 자신이 의심받는다는 생각에 불안해하는 듯했다.",
+                "choices": [
+                    (
+                        "아직 누구도 범인이라고 단정하지 않았습니다. 사건 당일 무슨 일이 있었는지 확인하려는 겁니다.",
+                        "지현은 잠시 망설이다가 고개를 끄덕였다."
+                    ),
+                ],
+                "answer_speaker": "나레이션",
+            },
 
-    scene3 = [
-        {
-            "speaker": "나",
-            "text": "사건 당일, 교무실 앞 복도를 지나갔다고 들었습니다. 맞습니까?"
-        },
-        {
-            "speaker": "지현",
-            "text": "네. 야간 자율학습을 마치고 집에 가던 길이었어요."
-        },
-        {
-            "speaker": "나",
-            "text": "그때 교무실 안으로 들어간 적은 없나요?"
-        },
-        {
-            "speaker": "지현",
-            "text": "없어요. 교무실 앞을 지나가기만 했어요. 문도 닫혀 있었고요."
-        },
-        {
-            "speaker": "나레이션",
-            "text": "지현은 잠시 생각하다가 무언가 떠올랐다는 듯 말을 이었다."
-        },
-        {
-            "speaker": "지현",
-            "text": "아, 그런데 그날 복도 끝에서 프린터 소리 같은 게 들렸어요. 인쇄실 쪽이었던 것 같아요."
-        },
-        {
-            "speaker": "나레이션",
-            "text": "나는 수첩에 인쇄실이라는 단어를 적었다. 어떤 점부터 확인하는 편이 좋을까?",
-            "choices": [
-                {
-                    "question": "그 소리는 언제쯤 들었습니까?",
-                    "answer": "정확한 시각은 기억나지 않아요. 야간 자율학습을 마치고 복도를 지나갈 때였어요. 누가 인쇄하고 있었는지는 모르겠어요."
-                },
-                {
-                    "question": "인쇄실 근처에서 누군가를 보았습니까?",
-                    "answer": "사람이 있었는지는 확실치 않아요. 소리만 들었고, 누가 인쇄하고 있었는지는 보지 못했어요."
-                }
-            ]
-        },
-        {
-            "speaker": "나",
-            "text": "소리가 났다는 사실만으로 시험 자료와 관련 있다고 단정할 수는 없겠군요."
-        },
-        {
-            "speaker": "지현",
-            "text": "네. 저도 무슨 종이를 인쇄했는지는 전혀 몰라요."
-        },
-        {
-            "speaker": "나레이션",
-            "text": "나는 지현의 진술을 정리했다. 교무실 앞을 지나갔다는 사실, 그리고 인쇄실 쪽에서 들렸다는 소리. 아직 확인이 필요한 이야기들이었다."
-        }
-    ]
+            ("지현", '"알겠어요. 무엇부터 말씀드리면 될까요?"'),
+        ],
+    ),
 
-    step = st.session_state["chapter2_scene3_step"]
-    location = "학교 본관 · 면담실"
+    (
+        "SCENE 03 · 지현의 진술",
+        [
+            ("나", "사건 당일, 교무실 앞 복도를 지나갔다고 들었습니다. 맞습니까?"),
+            ("지현", '"네. 야간 자율학습을 마치고 집에 가던 길이었어요."'),
+            ("나", "그때 교무실 안으로 들어간 적은 없나요?"),
+            ("지현", '"없어요. 교무실 앞을 지나가기만 했어요. 문도 닫혀 있었고요."'),
+            ("나레이션", "지현은 잠시 생각하다가 무언가 떠올랐다는 듯 말을 이었다."),
+            ("지현", '"아, 그런데 그날 복도 끝에서 프린터 소리 같은 게 들렸어요. 인쇄실 쪽이었던 것 같아요."'),
 
-    if step >= len(scene3):
-        st.caption("지현의 첫 번째 진술 확인 완료")
-        st.info("다음 장면은 아직 작성되지 않았습니다.")
-        return
+            {
+                "text": "나는 수첩에 '인쇄실'이라는 단어를 적었다. 무엇을 먼저 물어볼까?",
+                "choices": [
+                    (
+                        "그 소리는 언제쯤 들었습니까?",
+                        '"정확한 시각은 기억나지 않아요. 야간 자율학습을 마치고 복도를 지나갈 때였어요."'
+                    ),
+                    (
+                        "인쇄실 근처에서 누군가를 보았습니까?",
+                        '"사람이 있었는지는 확실치 않아요. 소리만 들었고, 누가 인쇄했는지는 못 봤어요."'
+                    ),
+                ],
+                "answer_speaker": "지현",
+            },
 
-    current = scene3[step]
-    choices = current.get("choices")
+            ("나", "소리만으로는 시험 자료와 관련이 있다고 단정할 수 없겠군요."),
+            ("지현", '"네. 누가 무엇을 인쇄했는지는 전혀 몰라요."'),
+            ("나레이션", "나는 지현의 진술을 기록했다. 인쇄실에서 들린 소리는 추가 확인이 필요했다."),
+        ],
+    ),
 
-    # 일반 대사
-    if choices is None:
+    (
+        "SCENE 04 · 혜린의 면담",
+        [
+            ("나레이션", "지현이 나간 뒤, 다음 학생이 들어왔다. 혜린은 차분하게 맞은편 의자에 앉았다."),
+            ("혜린", '"안녕하세요. 혜린이에요. 제가 아는 건 전부 말씀드릴게요."'),
 
-        show_dialogue(
-            "CHAPTER 02",
-            "다섯 명의 증언",
-            location,
-            current["speaker"],
-            current["text"]
-        )
+            {
+                "text": "혜린은 사건 당일 수행평가를 준비하느라 학교에 남아 있었다고 한다. 무엇부터 물을까?",
+                "choices": [
+                    (
+                        "그날 학교에 남아 있었던 이유가 뭡니까?",
+                        '"수행평가 발표 자료를 정리하고 있었어요. 생각보다 오래 걸렸거든요."'
+                    ),
+                    (
+                        "학교에서는 몇 시쯤 나왔습니까?",
+                        '"정확하지는 않지만 저녁 8시 10분쯤이었어요. 자료를 정리하고 바로 나갔어요."'
+                    ),
+                ],
+                "answer_speaker": "혜린",
+            },
 
-        if st.button(
-            "다음 ▶",
-            key="chapter2_scene3_next",
-            use_container_width=True
-        ):
-            st.session_state["chapter2_scene3_step"] += 1
-            st.rerun()
+            ("혜린", '"발표 자료를 마무리하느라 남아 있었고, 저녁 8시 10분쯤 학교를 나왔다고 기억해요."'),
+            ("나레이션", "나는 지현이 들었다던 인쇄기 소리를 떠올렸다."),
 
-        return
+            {
+                "text": "혜린이 인쇄실과 관련이 있었는지 확인해 보자.",
+                "choices": [
+                    (
+                        "그날 인쇄실에 들어간 적이 있습니까?",
+                        '"아뇨. 저는 컴퓨터에서 발표 자료를 정리하기만 했어요. 인쇄실에는 들어가지 않았어요."'
+                    ),
+                    (
+                        "인쇄기 소리를 들은 기억이 있습니까?",
+                        '"잘 모르겠어요. 저는 교실에서 작업하고 있었고 인쇄실 근처에는 가지 않았거든요."'
+                    ),
+                ],
+                "answer_speaker": "혜린",
+            },
 
-    # 선택지가 있는 장면
-    phase = st.session_state["chapter2_scene3_phase"]
+            ("나", "알겠습니다. 말씀하신 시간과 동선은 다른 진술과 함께 확인하겠습니다."),
+            ("나레이션", "혜린의 면담을 마쳤다. 나는 그녀가 기억한다는 귀가 시각에 밑줄을 그었다."),
+        ],
+    ),
 
-    if phase == "question":
+    (
+        "SCENE 05 · 예주의 면담",
+        [
+            ("나레이션", "세 번째 학생인 예주가 들어왔다. 손에는 동아리 활동을 정리한 작은 수첩이 들려 있었다."),
+            ("예주", '"저는 그날 동아리 자료를 정리하고 있었어요. 늦게까지 남은 건 맞아요."'),
 
-        show_dialogue(
-            "CHAPTER 02",
-            "다섯 명의 증언",
-            location,
-            current["speaker"],
-            current["text"]
-        )
+            {
+                "text": "예주가 그날 어디에 있었는지 알아보자.",
+                "choices": [
+                    (
+                        "자료를 정리한 장소가 어디였습니까?",
+                        '"동아리실이요. 정리를 마치고 저녁 8시 반쯤 복도로 나왔어요."'
+                    ),
+                    (
+                        "학교를 떠나기 전 누구를 보았나요?",
+                        '"복도에서 누군가 지나가는 걸 봤어요. 혜린이 같았지만 멀리 있어서 확실하지 않아요."'
+                    ),
+                ],
+                "answer_speaker": "예주",
+            },
 
-        options = [
-            choice["question"] for choice in choices
-        ]
+            ("예주", '"8시 반쯤 복도에서 누군가를 봤어요. 혜린이 같았지만 얼굴을 분명히 보지는 못했어요."'),
+            ("나레이션", "혜린의 주장과 차이가 생겼다. 하지만 목격자의 기억만으로 결론을 내릴 수는 없다."),
 
-        selected = choose_dialogue(
-            options,
-            "chapter2_scene3_choice_" + str(step)
-        )
+            {
+                "text": "예주가 본 장면을 조금 더 구체적으로 확인하자.",
+                "choices": [
+                    (
+                        "어느 쪽 복도에서 보았습니까?",
+                        '"인쇄실로 이어지는 복도였어요. 그 사람이 그쪽으로 걷고 있었던 것 같아요."'
+                    ),
+                    (
+                        "그 사람이 들고 있던 물건이 있었나요?",
+                        '"파란색 파일 같은 걸 들고 있었어요. 안에 뭐가 있었는지는 보지 못했어요."'
+                    ),
+                ],
+                "answer_speaker": "예주",
+            },
 
-        if selected is not None:
-            st.session_state["chapter2_scene3_selected"] = selected
-            st.session_state["chapter2_scene3_phase"] = "player"
-            st.rerun()
+            ("예주", '"인쇄실 쪽 복도였고 파란 파일 같은 걸 봤어요. 그래도 그 사람이 혜린이라고 확신할 수는 없어요."'),
+            ("나", "확인되지 않은 부분은 추측으로 남겨 두겠습니다. 감사합니다."),
+        ],
+    ),
 
-    # 플레이어가 선택한 대사
-    elif phase == "player":
+    (
+        "SCENE 06 · 유주의 면담",
+        [
+            ("나레이션", "네 번째로 들어온 유주는 그날 친구를 기다렸던 일을 먼저 꺼냈다."),
+            ("유주", '"저는 친구가 일을 마칠 때까지 학교에서 기다렸어요. 특별한 일은 없었던 것 같은데요."'),
 
-        selected = st.session_state["chapter2_scene3_selected"]
+            {
+                "text": "유주가 얼마나 늦게까지 학교에 있었는지 확인하자.",
+                "choices": [
+                    (
+                        "언제까지 학교에 남아 있었습니까?",
+                        '"저녁 8시 40분쯤까지 있었어요. 친구와 연락하면서 기다렸어요."'
+                    ),
+                    (
+                        "기다리는 동안 어디에 있었습니까?",
+                        '"주로 1층 복도였어요. 8시 40분쯤 친구를 만나서 같이 나갔고요."'
+                    ),
+                ],
+                "answer_speaker": "유주",
+            },
 
-        show_dialogue(
-            "CHAPTER 02",
-            "다섯 명의 증언",
-            location,
-            "나",
-            choices[selected]["question"]
-        )
+            ("유주", '"1층 복도에서 기다리다가 8시 40분쯤 친구와 함께 나왔어요."'),
 
-        if st.button(
-            "다음 ▶",
-            key="chapter2_scene3_player_next",
-            use_container_width=True
-        ):
-            st.session_state["chapter2_scene3_phase"] = "answer"
-            st.rerun()
+            {
+                "text": "유주도 다른 학생을 보았을까?",
+                "choices": [
+                    (
+                        "기다리면서 다른 학생을 본 적 있습니까?",
+                        '"계단에서 내려오는 학생을 봤어요. 다인인 줄 알았는데 멀리 있어서 얼굴은 잘 못 봤어요."'
+                    ),
+                    (
+                        "특이한 소리나 움직임은 없었나요?",
+                        '"계단에서 발소리가 나서 돌아봤어요. 다인처럼 보이는 학생이 지나갔어요."'
+                    ),
+                ],
+                "answer_speaker": "유주",
+            },
 
-    # 지현의 답변
-    elif phase == "answer":
+            ("유주", '"그 학생이 다인이었는지는 자신 없어요. 얼굴을 똑바로 본 건 아니거든요."'),
+            ("나레이션", "나는 유주의 진술을 적었다. 다인의 귀가 시각을 확인할 필요가 있어 보였다."),
+        ],
+    ),
 
-        selected = st.session_state["chapter2_scene3_selected"]
+    (
+        "SCENE 07 · 다인의 면담",
+        [
+            ("나레이션", "마지막 학생인 다인이 들어왔다. 그녀는 발표 자료를 인쇄했던 일을 기억하고 있었다."),
+            ("다인", '"저, 그날 인쇄실에 들어간 건 맞아요. 발표 자료를 출력해야 했거든요."'),
 
-        show_dialogue(
-            "CHAPTER 02",
-            "다섯 명의 증언",
-            location,
-            "지현",
-            choices[selected]["answer"]
-        )
+            {
+                "text": "인쇄실을 사용했다는 다인에게 질문해 보자.",
+                "choices": [
+                    (
+                        "인쇄실에 있었던 시간은 언제입니까?",
+                        '"저녁 8시쯤 들어가서 출력했어요. 8시 10분쯤 다 끝내고 학교에서도 나왔어요."'
+                    ),
+                    (
+                        "무엇을 출력했습니까?",
+                        '"수업 발표에 쓸 자료예요. 8시쯤 출력했고 8시 10분쯤 학교를 나왔어요."'
+                    ),
+                ],
+                "answer_speaker": "다인",
+            },
 
-        if st.button(
-            "다음 ▶",
-            key="chapter2_scene3_answer_next",
-            use_container_width=True
-        ):
-            st.session_state["chapter2_scene3_step"] += 1
-            st.session_state["chapter2_scene3_phase"] = "question"
-            st.session_state["chapter2_scene3_selected"] = None
-            st.rerun()
+            ("다인", '"제가 인쇄한 건 발표 자료뿐이에요. 8시 10분쯤 학교를 나왔다고 기억해요."'),
+            ("나레이션", "지현이 들었다는 소리가 다인의 출력 소리였는지는 알 수 없었다."),
+
+            {
+                "text": "다인이 나간 뒤 인쇄실 상황도 확인하자.",
+                "choices": [
+                    (
+                        "인쇄실을 나올 때 다른 사람이 있었나요?",
+                        '"제가 나올 때는 아무도 못 봤어요. 그 뒤에 누가 들어왔는지는 몰라요."'
+                    ),
+                    (
+                        "그 뒤에 인쇄기가 다시 사용됐는지 아나요?",
+                        '"그건 모르겠어요. 제가 나온 뒤에는 인쇄실에 돌아가지 않았거든요."'
+                    ),
+                ],
+                "answer_speaker": "다인",
+            },
+
+            ("나", "출력한 자료와 사용 시각은 나중에 따로 확인하겠습니다."),
+            ("나레이션", "다섯 명의 면담을 모두 마쳤다. 이제 서로 다른 진술을 비교할 차례다."),
+        ],
+    ),
+]
+
+
+# 면담 완료 후 확인할 수 있는 증언 기록
+INTERVIEW_NOTES = {
+    "지현": (
+        "야간 자율학습을 마치고 교무실 앞 복도를 지나다가 "
+        "인쇄기 같은 소리를 들었다. "
+        "인쇄한 사람이나 내용은 확인하지 못했다."
+    ),
+
+    "혜린": (
+        "수행평가 자료를 정리한 뒤 저녁 8시 10분쯤 "
+        "귀가했다고 주장했다. "
+        "인쇄실에는 가지 않았다고 말했다."
+    ),
+
+    "예주": (
+        "저녁 8시 반쯤 인쇄실 쪽 복도에서 "
+        "혜린과 비슷한 사람을 봤다고 진술했다. "
+        "파란 파일을 들고 있었지만 신원은 확실하지 않다."
+    ),
+
+    "유주": (
+        "저녁 8시 40분쯤까지 친구를 기다렸다. "
+        "계단에서 다인과 비슷한 사람을 보았지만 "
+        "얼굴을 확인하지 못했다."
+    ),
+
+    "다인": (
+        "저녁 8시부터 약 10분 동안 발표 자료를 출력하고 "
+        "귀가했다고 진술했다. "
+        "이후 인쇄실 상황은 모른다고 말했다."
+    ),
+}
 
 
 def show_chapter2():
 
-    # 기존 진행 상태 변수
-    if "chapter2_line" not in st.session_state:
-        st.session_state["chapter2_line"] = 0
+    # 모든 장면의 대사를 순서대로 연결
+    story = []
 
-    if "chapter2_scene2_step" not in st.session_state:
-        st.session_state["chapter2_scene2_step"] = 0
+    for scene_title, lines in SCENES:
+        for entry in lines:
+            story.append((scene_title, entry))
 
-    if "chapter2_selected_reply" not in st.session_state:
-        st.session_state["chapter2_selected_reply"] = None
+    # 챕터 2 진행 상태 저장
+    if "chapter2_vn_index" not in st.session_state:
+        st.session_state["chapter2_vn_index"] = 0
 
-    # SCENE 01 · 면담실
-    scene1 = [
-        (
-            "나레이션",
-            "복도를 따라 걸어가자 작은 면담실이 나타났다."
-        ),
-        (
-            "나레이션",
-            "문을 열자 낡은 책상 하나와 마주 보는 의자 두 개가 눈에 들어왔다."
-        ),
-        (
-            "나레이션",
-            "책상 위에는 학교에서 전달받은 사건 기록과 다섯 명의 학생 명단이 놓여 있었다."
-        ),
-        (
-            "나레이션",
-            "지현, 혜린, 예주, 유주, 다인.\n\n모두 이번 사건의 조사 대상자들이었다."
-        ),
-        (
-            "나레이션",
-            "나는 명단을 다시 한번 살펴보았다.\n\n*'다섯 명의 말이 모두 사실일까.'*"
-        ),
-        (
-            "나레이션",
-            "그때 문밖에서 가벼운 노크 소리가 들렸다.\n\n**똑, 똑.**"
-        ),
-        (
-            "나",
-            '"들어오세요."'
-        ),
-        (
-            "나레이션",
-            "문이 열리고 한 여학생이 조심스럽게 안으로 들어왔다."
-        ),
-        (
-            "지현",
-            '"안녕하세요. 지현이라고 합니다."'
+    if "chapter2_vn_phase" not in st.session_state:
+        st.session_state["chapter2_vn_phase"] = "select"
+
+    if "chapter2_vn_choice" not in st.session_state:
+        st.session_state["chapter2_vn_choice"] = None
+
+    index = st.session_state["chapter2_vn_index"]
+
+    # 모든 면담이 끝난 경우
+    if index >= len(story):
+
+        st.caption("CHAPTER 02")
+        st.title("다섯 명의 증언")
+        st.subheader("면담 기록 정리")
+
+        st.write(
+            "나는 다섯 명의 진술을 정리했다. "
+            "목격자의 기억과 확인된 사실을 "
+            "구분할 필요가 있다."
         )
-    ]
 
-    # SCENE 02 · 첫 번째 면담
-    scene2 = [
-        {
-            "speaker": "나레이션",
-            "text": "지현은 조금 긴장한 표정으로 의자에 앉았다.",
-            "choice": "시간 내주셔서 감사합니다. 몇 가지 확인할 사항이 있어서요."
-        },
-        {
-            "speaker": "지현",
-            "text": '"네. 그런데 제가 정말 의심받고 있는 건가요?"',
-            "choice": "아직 누구도 범인이라고 단정하지 않았습니다. 사건 당일 무슨 일이 있었는지 확인하려는 겁니다."
-        },
-        {
-            "speaker": "나레이션",
-            "text": "지현은 잠시 망설이다가 고개를 끄덕였다.",
-            "choice": None
-        },
-        {
-            "speaker": "지현",
-            "text": '"알겠어요. 무엇부터 말씀드리면 될까요?"',
-            "choice": None
-        }
-    ]
+        name = st.selectbox(
+            "확인할 학생",
+            list(INTERVIEW_NOTES),
+            key="chapter2_notes_person"
+        )
+
+        with st.container(border=True):
+            st.markdown("**" + name + "**")
+            st.write(INTERVIEW_NOTES[name])
+
+        st.info(
+            "다섯 명의 면담이 끝났습니다. "
+            "다음 챕터에서는 진술과 다른 기록을 대조하게 됩니다."
+        )
+
+        return
+
+    scene_title, entry = story[index]
 
     location = "학교 본관 · 면담실"
-    line = st.session_state["chapter2_line"]
 
-    # SCENE 01 진행
-    if line < len(scene1):
+    # 일반 대사 출력
+    if isinstance(entry, tuple):
 
-        speaker, words = scene1[line]
+        speaker, words = entry
 
         show_dialogue(
             "CHAPTER 02",
@@ -265,91 +362,91 @@ def show_chapter2():
             words
         )
 
-        if line == len(scene1) - 1:
-            button_text = "면담 시작 ▶"
-        else:
-            button_text = "다음 ▶"
-
         if st.button(
-            button_text,
-            key="chapter2_next",
+            "다음 ▶",
+            key="chapter2_vn_next",
             use_container_width=True
         ):
-            st.session_state["chapter2_line"] += 1
+            st.session_state["chapter2_vn_index"] += 1
             st.rerun()
 
         return
 
-    # 선택한 탐정의 대사 표시
-    reply = st.session_state["chapter2_selected_reply"]
+    # 선택지 처리
+    phase = st.session_state["chapter2_vn_phase"]
 
-    if reply is not None:
+    options = entry["choices"]
+
+    # 1단계: 질문 선택
+    if phase == "select":
+
+        show_dialogue(
+            "CHAPTER 02",
+            "다섯 명의 증언",
+            location,
+            "나레이션",
+            entry["text"]
+        )
+
+        selected = choose_dialogue(
+            [question for question, answer in options],
+            "chapter2_vn_choice_" + str(index)
+        )
+
+        if selected is not None:
+            st.session_state["chapter2_vn_choice"] = selected
+            st.session_state["chapter2_vn_phase"] = "question"
+            st.rerun()
+
+    # 2단계: 탐정의 질문 출력
+    elif phase == "question":
+
+        selected = st.session_state["chapter2_vn_choice"]
+
+        question, answer = options[selected]
 
         show_dialogue(
             "CHAPTER 02",
             "다섯 명의 증언",
             location,
             "나",
-            reply
+            question
         )
 
         if st.button(
             "다음 ▶",
-            key="chapter2_reply_next",
+            key="chapter2_vn_question_next",
             use_container_width=True
         ):
-            st.session_state["chapter2_selected_reply"] = None
-            st.session_state["chapter2_scene2_step"] += 1
+            st.session_state["chapter2_vn_phase"] = "answer"
             st.rerun()
 
-        return
+    # 3단계: 상대방의 답변 출력
+    elif phase == "answer":
 
-    # SCENE 02 진행
-    step = st.session_state["chapter2_scene2_step"]
+        selected = st.session_state["chapter2_vn_choice"]
 
-    if step >= len(scene2):
-        show_chapter2_scene3()
-        return
+        question, answer = options[selected]
 
-    current = scene2[step]
-
-    show_dialogue(
-        "CHAPTER 02",
-        "다섯 명의 증언",
-        location,
-        current["speaker"],
-        current["text"]
-    )
-
-    if current["choice"] is not None:
-
-        options = [current["choice"]]
-
-        selected = choose_dialogue(
-            options,
-            "chapter2_choice_" + str(step)
+        answer_speaker = entry.get(
+            "answer_speaker",
+            "나레이션"
         )
 
-        if selected is not None:
-            st.session_state["chapter2_selected_reply"] = options[selected]
-            st.rerun()
-
-    elif step < len(scene2) - 1:
+        show_dialogue(
+            "CHAPTER 02",
+            "다섯 명의 증언",
+            location,
+            answer_speaker,
+            answer
+        )
 
         if st.button(
             "다음 ▶",
-            key="chapter2_scene2_next",
+            key="chapter2_vn_answer_next",
             use_container_width=True
         ):
-            st.session_state["chapter2_scene2_step"] += 1
-            st.rerun()
-
-    else:
-
-        if st.button(
-            "지현의 진술 듣기 ▶",
-            key="chapter2_to_scene3",
-            use_container_width=True
-        ):
-            st.session_state["chapter2_scene2_step"] += 1
+            st.session_state["chapter2_vn_index"] += 1
+            st.session_state["chapter2_vn_phase"] = "select"
+            st.session_state["chapter2_vn_choice"] = None
             st.rerun()
