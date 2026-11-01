@@ -101,12 +101,14 @@ def show_chapter2():
     show_chapter2_dialogue(location, current["speaker"], current["text"])
 
     if current["choice"] is not None:
+        # choose_dialogue()는 대사 문자열이 아니라 선택한 보기의 번호를 반환함
+        options = [current["choice"]]
         selected = choose_dialogue(
-            [current["choice"]],
+            options,
             "chapter2_choice_" + str(step),
         )
         if selected is not None:
-            st.session_state["chapter2_selected_reply"] = selected
+            st.session_state["chapter2_selected_reply"] = options[selected]
             st.rerun()
     elif step < len(scene2) - 1:
         if st.button("다음 ▶", key="chapter2_scene2_next", use_container_width=True):
