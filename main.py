@@ -896,3 +896,5 @@ elif st.session_state["page"] == "chapter1":
     show_chapter1()
 elif st.session_state["page"] == "chapter2":
     show_chapter2()
+elif st.session_state["page"] == "chapter3":
+    show_chapter3()
