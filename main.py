@@ -2,6 +2,8 @@ import streamlit as st
 from textwrap import dedent
 from chapters.chapter1 import show_chapter1
 from chapters.chapter2 import show_chapter2
+from chapters.chapter3 import show_chapter3
+
 
 # =========================
 # 페이지 설정
