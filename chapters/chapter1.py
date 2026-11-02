@@ -95,27 +95,21 @@ def show_chapter1():
     # 1. 탐정 사무소 ~ 교장실
     if step < len(story):
 
-        # 오른쪽 상단 스킵 버튼
-        left, right = st.columns([3, 1])
-
-        with right:
-            if st.button(
-                "스킵 ⏭",
-                key="chapter1_skip_story",
-                use_container_width=True
-            ):
-                st.session_state["chapter1_step"] = len(story)
-                st.rerun()
-
         location, speaker, words = story[step]
+
 
         show_dialogue(
             "CHAPTER 01",
             "낯선 의뢰",
             location,
             speaker,
-            words
+            words,
+            skip_key="chapter1_skip_story",
+            skip_changes={
+                "chapter1_step": len(story)
+            }
         )
+
 
         if words == "나는 잠시 생각에 잠겼다.":
             button_text = "의뢰를 수락한다"
@@ -230,20 +224,6 @@ def show_chapter1():
     # 3. 사건 기록 확인 이후
     ending_step = step - len(story) - 1
 
-    # 마지막 대사 화면까지 스킵
-    if ending_step < len(ending) - 1:
-
-        left, right = st.columns([3, 1])
-
-        with right:
-            if st.button(
-                "스킵 ⏭",
-                key="chapter1_skip_ending",
-                use_container_width=True
-            ):
-                st.session_state["chapter1_step"] = len(story) + len(ending)
-                st.rerun()
-
     speaker, words = ending[ending_step]
 
 
@@ -252,8 +232,17 @@ def show_chapter1():
         "낯선 의뢰",
         "학교 본관 · 교장실",
         speaker,
-        words
+        words,
+        skip_key=(
+            "chapter1_skip_ending"
+            if ending_step < len(ending) - 1
+            else None
+        ),
+        skip_changes={
+            "chapter1_step": len(story) + len(ending)
+        }
     )
+
 
     if ending_step < len(ending) - 1:
 
