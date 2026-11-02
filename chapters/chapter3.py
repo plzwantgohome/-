@@ -173,3 +173,11 @@ def show_chapter3():
         st.write(CASE_NOTES[name])
     st.info("챕터 3 조사를 완료했습니다. 챕터 4에서는 유출 사진 속 흔적을 살펴봅니다.")
 
+    if st.button(
+        "챕터 4로 ▶",
+        key="chapter3_to_chapter4",
+        use_container_width=True
+    ):
+        st.session_state["page"] = "chapter4"
+        st.rerun()
+
