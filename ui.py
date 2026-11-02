@@ -18,7 +18,6 @@ def show_dialogue(
 
     div[class*="st-key-chapter1_skip_"] button {
         width: fit-content !important;
-        justify-content: flex-end !important;
         min-width: 0 !important;
         height: 28px !important;
         min-height: 28px !important;
@@ -62,8 +61,7 @@ def show_dialogue(
                     if st.button(
                         "스킵 ⏭",
                         key=skip_key,
-                        type="tertiary",
-                        use_container_width=True
+                        type="tertiary"
                     ):
 
                         st.session_state.update(skip_changes)
