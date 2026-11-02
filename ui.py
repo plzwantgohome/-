@@ -61,8 +61,10 @@ def show_dialogue(
                     if st.button(
                         "스킵 ⏭",
                         key=skip_key,
-                        type="tertiary"
+                        type="tertiary",
+                        use_container_width=True
                     ):
+
                         st.session_state.update(skip_changes)
                         st.rerun()
 
