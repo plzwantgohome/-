@@ -325,6 +325,14 @@ def show_chapter2():
             "다음 챕터에서는 진술과 다른 기록을 대조하게 됩니다."
         )
 
+        if st.button(
+            "챕터 3으로 ▶",
+            key="chapter2_to_chapter3",
+            use_container_width=True
+        ):
+            st.session_state["page"] = "chapter3"
+            st.rerun()
+
         return
 
     scene_title, entry = story[index]
