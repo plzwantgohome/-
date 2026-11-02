@@ -8,6 +8,37 @@ def show_dialogue(
 ):
     """모든 챕터에서 공통으로 사용하는 미연시형 대화 화면."""
 
+    # 챕터 1 스킵 버튼의 크기와 디자인
+    st.html("""
+    <style>
+    div[class*="st-key-chapter1_skip_"] {
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+
+    div[class*="st-key-chapter1_skip_"] button {
+        width: fit-content !important;
+        min-width: 0 !important;
+        height: 28px !important;
+        min-height: 28px !important;
+        padding: 0 6px !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: #aaaaaa !important;
+    }
+
+    div[class*="st-key-chapter1_skip_"] button p {
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+
+    div[class*="st-key-chapter1_skip_"] button:hover {
+        color: #ffffff !important;
+    }
+    </style>
+    """)
+
     st.caption(chapter)
     st.title(title)
 
@@ -19,7 +50,7 @@ def show_dialogue(
             if skip_key is not None and skip_changes is not None:
 
                 left, right = st.columns(
-                    [9, 1],
+                    [8, 2],
                     vertical_alignment="center"
                 )
 
@@ -30,8 +61,7 @@ def show_dialogue(
                     if st.button(
                         "스킵 ⏭",
                         key=skip_key,
-                        type="tertiary",
-                        use_container_width=True
+                        type="tertiary"
                     ):
                         st.session_state.update(skip_changes)
                         st.rerun()
