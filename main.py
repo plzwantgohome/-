@@ -3,6 +3,7 @@ from textwrap import dedent
 from chapters.chapter1 import show_chapter1
 from chapters.chapter2 import show_chapter2
 from chapters.chapter3 import show_chapter3
+from chapters.chapter4 import show_chapter4
 
 
 # =========================
@@ -898,3 +899,5 @@ elif st.session_state["page"] == "chapter2":
     show_chapter2()
 elif st.session_state["page"] == "chapter3":
     show_chapter3()
+elif st.session_state["page"] == "chapter4":
+    show_chapter4()
