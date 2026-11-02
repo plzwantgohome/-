@@ -110,36 +110,49 @@ def show_lines(lines, line_key, location):
     return False
 
 
-def show_photo_investigation():
-    """사진의 세 부분을 원하는 순서로 조사한다."""
-    selected = st.session_state["chapter4_selected_photo"]
-    checked = st.session_state["chapter4_checked_photo"]
+
+def show_location_investigation():
+    """모든 장소를 조사한 뒤 마지막 장면으로 진행한다."""
+    selected = st.session_state["chapter4_selected_location"]
+    checked = st.session_state["chapter4_checked_locations"]
 
     if selected is None:
         show_dialogue(
-            CHAPTER, TITLE, "학교 본관 · 자료 열람실",
-            "나레이션", "캡처 화면에서 어느 부분을 살펴볼까?"
+            CHAPTER, TITLE, "학교 본관 · 복도",
+            "나레이션", "사진 속 책상을 어디에서 찾아볼까?"
         )
-        st.caption(f"확인한 부분: {len(checked)} / {len(PHOTO_DETAILS)}")
+        st.caption(f"방문한 장소: {len(checked)} / {len(LOCATIONS)}")
 
-        names = list(PHOTO_DETAILS)
+        names = list(LOCATIONS)
         labels = [("✓ " if name in checked else "") + name for name in names]
-        choice = choose_dialogue(labels, key_prefix="chapter4_photo_choice")
+        choice = choose_dialogue(labels, key_prefix="chapter4_location_choice")
 
         if choice is not None:
-            st.session_state["chapter4_selected_photo"] = names[choice]
-            st.session_state["chapter4_photo_line"] = 0
+            st.session_state["chapter4_selected_location"] = names[choice]
+            st.session_state["chapter4_location_line"] = 0
             st.rerun()
 
-        if len(checked) == len(PHOTO_DETAILS):
+        # 모든 장소를 조사해야 다음 장면으로 이동 가능
+        if len(checked) == len(LOCATIONS):
             if st.button(
-                "촬영 장소 찾아보기 ▶",
-                key="chapter4_to_locations",
+                "조사 완료 · 다음 장면 ▶",
+                key="chapter4_to_ending",
                 use_container_width=True
             ):
-                st.session_state["chapter4_phase"] = "locations"
+                st.session_state["chapter4_phase"] = "ending"
                 st.rerun()
         return
+
+    if show_lines(
+        LOCATIONS[selected],
+        "chapter4_location_line",
+        "학교 본관 · " + selected
+    ):
+        if selected not in checked:
+            st.session_state["chapter4_checked_locations"] = checked + [selected]
+
+        st.session_state["chapter4_selected_location"] = None
+        st.rerun()
 
     if show_lines(
         PHOTO_DETAILS[selected],
