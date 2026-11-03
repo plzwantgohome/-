@@ -338,17 +338,31 @@ def show_chapter2():
     scene_title, entry = story[index]
     location = "학교 본관 · 면담실"
 
-    # 일반 대사: 현재 대사만 표시
+
+    # 일반 대사에서만 스킵 가능
     if isinstance(entry, tuple):
 
         speaker, words = entry
+
+        # 다음 필수 질문 선택 화면 찾기
+        next_required = next(
+            (
+                i for i in range(index + 1, len(story))
+                if isinstance(story[i][1], dict)
+            ),
+            len(story)
+        )
 
         show_dialogue(
             "CHAPTER 02",
             "다섯 명의 증언",
             location,
             speaker,
-            words
+            words,
+            skip_key="chapter2_skip_story",
+            skip_changes={
+                "chapter2_vn_index": next_required
+            }
         )
 
         if st.button(
@@ -360,6 +374,7 @@ def show_chapter2():
             st.rerun()
 
         return
+
 
     # 선택지: 기존 공통 기능 유지
     finished = play_questions(
