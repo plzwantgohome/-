@@ -4,7 +4,7 @@ from chapters.chapter1 import show_chapter1
 from chapters.chapter2 import show_chapter2
 from chapters.chapter3 import show_chapter3
 from chapters.chapter4 import show_chapter4
-
+from chapters.chapter5 import show_chapter5
 
 # =========================
 # 페이지 설정
@@ -901,3 +901,5 @@ elif st.session_state["page"] == "chapter3":
     show_chapter3()
 elif st.session_state["page"] == "chapter4":
     show_chapter4()
+elif st.session_state["page"] == "chapter5":
+    show_chapter5()
