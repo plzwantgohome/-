@@ -13,6 +13,7 @@ def show_dialogue(
     st.html("""
     <style>
     div[class*="st-key-chapter"][class*="_skip_"] {
+        margin-left: auto !important;
         display: flex !important;
         justify-content: flex-end !important;
     }
