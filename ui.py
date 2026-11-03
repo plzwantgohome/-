@@ -11,13 +11,13 @@ def show_dialogue(
     # 챕터 1 스킵 버튼의 크기와 디자인
     st.html("""
     <style>
-    div[class*="st-key-chapter1_skip_"] {       
+    div[class*="st-key-chapter"][class*="_skip_"] {       
         margin-left: auto !important;
         display: block !important;
         justify-content: flex-end !important;
     }
-
-    div[class*="st-key-chapter1_skip_"] button {
+    
+    div[class*="st-key-chapter"][class*="_skip_"] {
         width: fit-content !important;
         min-width: 0 !important;
         height: 28px !important;
@@ -30,13 +30,13 @@ def show_dialogue(
         color: #aaaaaa !important;
 
     }
-
-    div[class*="st-key-chapter1_skip_"] button p {
+    
+    div[class*="st-key-chapter"][class*="_skip_"] {
         font-size: 13px !important;
         white-space: nowrap !important;
     }
-
-    div[class*="st-key-chapter1_skip_"] button:hover {
+    
+    div[class*="st-key-chapter"][class*="_skip_"] {
         color: #ffffff !important;
     }
     </style>
