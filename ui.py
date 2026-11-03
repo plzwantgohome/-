@@ -11,8 +11,9 @@ def show_dialogue(
     # 챕터 1 스킵 버튼의 크기와 디자인
     st.html("""
     <style>
-    div[class*="st-key-chapter1_skip_"] {
-        display: flex !important;
+    div[class*="st-key-chapter1_skip_"] {       
+        margin-left: auto !important;
+        display: block !important;
         justify-content: flex-end !important;
     }
 
