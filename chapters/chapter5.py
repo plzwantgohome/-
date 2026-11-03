@@ -295,3 +295,11 @@ def show_chapter5():
         "챕터 5 조사를 완료했습니다. "
         "다음은 프린터 기록과 학생들의 증언을 대조할 차례입니다."
     )
+    
+    if st.button(
+        "챕터 6로 ▶",
+        key="chapter5_to_chapter6",
+        use_container_width=True
+    ):
+        st.session_state["page"] = "chapter6"
+        st.rerun() 
