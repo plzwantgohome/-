@@ -23,9 +23,11 @@ def show_dialogue(
         min-height: 28px !important;
         padding: 0 6px !important;
         background: transparent !important;
-        border: none !important;
+        border: 1px solid #444444 !important;
+        border-radius: 5px !important;
         box-shadow: none !important;
         color: #aaaaaa !important;
+
     }
 
     div[class*="st-key-chapter1_skip_"] button p {
