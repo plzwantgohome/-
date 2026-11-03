@@ -10,6 +10,15 @@ def show_dialogue(
 
     # 챕터 1 스킵 버튼의 크기와 디자인
     st.html("""
+   
+    /* 배경 영역 높이 유지 및 스크롤 방지 */
+    div.st-key-vn_background {
+        min-height: 280px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
     <style>
     div[class*="st-key-story_skip_"] {
         display: flex !important;
@@ -45,7 +54,10 @@ def show_dialogue(
     with st.container(border=True):
 
         # 배경과 캐릭터가 들어갈 공간
-        with st.container(height=280, border=False):
+        with st.container(
+            border=False,
+            key="vn_background"
+        ):
 
             if skip_key is not None and skip_changes is not None:
 
