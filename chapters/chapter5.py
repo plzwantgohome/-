@@ -40,36 +40,45 @@ RECORDS = {
     "혜린": {
         "location": "공용 인쇄실 · 프린터 기록",
         "lines": [
-            ("나레이션", "그다음으로 눈에 들어온 것은 21시 07분에 남겨진 출력 기록이었다."),
+            ("나레이션", "21시 07분에 남겨진 출력 기록을 확인했다."),
             ("나레이션", "사용 계정은 혜린, 파일명은 '수행평가_발표자료.pdf'였다."),
             ("나", '"시험지 출력 이후에 혜린의 계정이 사용됐다고?"'),
             ("나레이션", "계정 기록만으로 실제 프린터 앞에 있었던 사람이 누구인지 단정할 수는 없었다."),
             ("나", '"하지만 확인할 필요가 있는 기록이 생겼어."'),
         ],
     },
-    "시험 담당 교사의 확인": {
-        "location": "학교 본관 · 자료 열람실",
-        "lines": [
-            ("나레이션", "나는 시험 담당 교사에게 그날 공용 인쇄실에서 출력한 사실을 확인했다."),
-            ("교사", '"네, 그날 저녁에 시험지를 출력했어요. 바로 가져왔는데, 종이 수까지 일일이 세지는 않았습니다."'),
-            ("나", '"그렇다면 출력물 중 한 장이 인쇄실에 남았을 가능성도 있겠군요."'),
-            ("나레이션", "교사는 남은 종이가 있었는지는 기억하지 못했다. 아직 확인되지 않은 가능성이었다."),
-        ],
-    },
 }
 
 
-ENDING_LINES = [
-    ("나레이션", "나는 확인한 네 기록을 시간순으로 다시 정리했다."),
-    ("나", '"다인은 시험지가 출력되기 전에 인쇄실을 이용했어."'),
-    ("나", '"시험 담당 교사는 20시 41분에 시험지를 출력했고, 그 뒤 21시 07분에는 혜린 계정의 사용 기록이 남았지."'),
-    ("나레이션", "시험지 한 장이 인쇄실에 남아 있었을 가능성이 떠올랐다."),
-    ("나", '"하지만 프린터 기록만으로 사진을 찍은 사람까지 특정할 수는 없어."'),
-    ("나레이션", "나는 챕터 2에서 기록해 둔 다섯 학생의 증언을 다시 펼쳤다."),
-    ("나", '"이제 이 시간표와 학생들이 했던 말을 하나씩 맞춰 봐야겠어."'),
+# 출력 순서를 맞힌 후 시험 담당 교사를 찾아가는 장면
+TEACHER_LINES = [
+    ("나레이션", "출력 기록을 시간순으로 정리하자 사건의 흐름이 조금씩 드러났다."),
+    ("나", '"다인은 시험지 출력 전에 인쇄실을 이용했어. 그리고 시험지가 출력된 뒤에는 혜린의 기록이 남아 있지."'),
+    ("나", '"그렇다면 시험지를 출력했던 선생님께 직접 확인해 봐야겠어."'),
+    ("나레이션", "나는 시험 담당 교사를 찾아가 사건 당일의 상황을 물었다."),
+    ("나", '"선생님, 사건 당일 20시 41분에 공용 인쇄실에서 시험지를 출력하셨습니까?"'),
+    ("교사", '"네, 맞습니다. 그날 저녁 시험지를 출력했어요."'),
+    ("나", '"출력하신 시험지는 모두 가져오셨나요?"'),
+    ("교사", '"바로 챙겨 오긴 했는데, 종이 수까지 일일이 확인하지는 않았어요."'),
+    ("나", '"그렇다면 시험지 한 장이 인쇄실에 남아 있었을 가능성도 있겠군요."'),
+    ("교사", '"확실하지는 않지만, 그럴 가능성도 있겠네요."'),
+    ("나레이션", "선생님과의 대화를 마친 나는 지금까지의 기록을 다시 살펴보았다."),
 ]
 
 
+# 챕터 5 마지막 장면
+ENDING_LINES = [
+    ("나레이션", "나는 지금까지 확인한 출력 기록과 선생님의 증언을 정리했다."),
+    ("나", '"다인은 시험지가 출력되기 전에 인쇄실을 이용했어."'),
+    ("나", '"20시 41분에는 시험지가 출력됐고, 21시 07분에는 혜린 계정의 사용 기록이 남아 있지."'),
+    ("나레이션", "선생님은 출력한 시험지를 모두 챙겼는지 확신하지 못했다."),
+    ("나", '"만약 시험지 한 장이 인쇄실에 남아 있었다면, 그 뒤에 인쇄실을 이용한 사람이 발견했을 수도 있어."'),
+    ("나레이션", "나는 챕터 2에서 기록해 둔 학생들의 증언을 다시 펼쳤다."),
+    ("나", '"이제 실제 기록과 학생들의 말이 일치하는지 확인해야겠어."'),
+]
+
+
+# 챕터 마지막 조사 기록 요약
 CASE_NOTES = {
     "다인 출력 기록": "20:30 다인 계정으로 발표 자료 출력. 시험지는 20:41에 출력되므로 다인의 출력은 그보다 앞선다.",
     "시험지 출력 기록": "20:41 시험 담당 교사가 '2학년 중간고사 최종본.pdf'를 출력했다.",
@@ -79,11 +88,12 @@ CASE_NOTES = {
 
 
 def show_lines(lines, line_key, location, skip_target=None):
-    """공통 대화 UI를 이용하고, 도입·마무리 장면에만 스킵을 적용한다."""
+    """기존 대화 UI를 이용하고 스킵 기능을 적용한다."""
     if line_key not in st.session_state:
         st.session_state[line_key] = 0
 
     index = st.session_state[line_key]
+
     if index >= len(lines):
         return True
 
@@ -98,7 +108,11 @@ def show_lines(lines, line_key, location, skip_target=None):
             skip_changes={"chapter5_phase": skip_target},
         )
 
-    if st.button("다음 ▶", key=line_key + "_next", use_container_width=True):
+    if st.button(
+        "다음 ▶",
+        key=line_key + "_next",
+        use_container_width=True
+    ):
         st.session_state[line_key] += 1
         st.rerun()
 
@@ -106,7 +120,7 @@ def show_lines(lines, line_key, location, skip_target=None):
 
 
 def show_records():
-    """네 가지 기록을 자유롭게 조사하고, 모두 확인하면 순서 맞추기로 이동한다."""
+    """세 가지 출력 기록을 자유롭게 조사한다."""
     selected = st.session_state["chapter5_selected_record"]
     checked = st.session_state["chapter5_checked_records"]
 
@@ -119,8 +133,15 @@ def show_records():
         st.caption(f"확인한 기록: {len(checked)} / {len(RECORDS)}")
 
         names = list(RECORDS)
-        labels = [("✓ " if name in checked else "") + name for name in names]
-        choice = choose_dialogue(labels, key_prefix="chapter5_record_choice")
+        labels = [
+            ("✓ " if name in checked else "") + name
+            for name in names
+        ]
+
+        choice = choose_dialogue(
+            labels,
+            key_prefix="chapter5_record_choice"
+        )
 
         if choice is not None:
             st.session_state["chapter5_selected_record"] = names[choice]
@@ -135,6 +156,7 @@ def show_records():
             ):
                 st.session_state["chapter5_phase"] = "timeline"
                 st.rerun()
+
         return
 
     record = RECORDS[selected]
@@ -152,16 +174,16 @@ def show_records():
 
 
 def show_timeline():
-    """출력 기록에 나타난 세 계정의 사용 순서를 확인한다."""
+    """출력 기록에 나타난 세 계정의 사용 순서를 추리한다."""
     show_dialogue(
         CHAPTER, TITLE, "공용 인쇄실 · 사건 기록",
         "나", '"세 건의 출력 기록을 시간순으로 놓으면 어떤 순서가 될까?"'
     )
 
     options = [
-        "다인 → 시험 담당 교사 → 혜린",
-        "시험 담당 교사 → 다인 → 혜린",
-        "혜린 → 다인 → 시험 담당 교사",
+        "담당 교사 → 다인 → 혜린",
+        "다인 → 담당 교사 → 혜린",
+        "혜린 → 담당 교사 → 다인",
     ]
 
     choice = choose_dialogue(
@@ -170,10 +192,12 @@ def show_timeline():
     )
 
     if choice is not None:
-        if choice == 0:
-            st.session_state["chapter5_phase"] = "ending"
+        if choice == 1:
+            st.session_state["chapter5_wrong_order"] = False
+            st.session_state["chapter5_phase"] = "teacher"
         else:
             st.session_state["chapter5_wrong_order"] = True
+
         st.rerun()
 
     if st.session_state["chapter5_wrong_order"]:
@@ -207,25 +231,41 @@ def show_chapter5():
 
     phase = st.session_state["chapter5_phase"]
 
+    # SCENE 01 · 도입
     if phase == "intro":
         if show_lines(
             INTRO_LINES,
             "chapter5_intro_line",
             "공용 인쇄실",
-            skip_target="records"
+            skip_target="finished"
         ):
             st.session_state["chapter5_phase"] = "records"
             st.rerun()
         return
 
+    # SCENE 02 · 출력 기록 조사
     if phase == "records":
         show_records()
         return
 
+    # SCENE 03 · 출력 순서 추리
     if phase == "timeline":
         show_timeline()
         return
 
+    # SCENE 04 · 시험 담당 교사 확인
+    if phase == "teacher":
+        if show_lines(
+            TEACHER_LINES,
+            "chapter5_teacher_line",
+            "학교 본관 · 교무실",
+            skip_target="finished"
+        ):
+            st.session_state["chapter5_phase"] = "ending"
+            st.rerun()
+        return
+
+    # SCENE 05 · 마지막 장면
     if phase == "ending":
         if show_lines(
             ENDING_LINES,
@@ -237,7 +277,7 @@ def show_chapter5():
             st.rerun()
         return
 
-    # 챕터를 마친 뒤에도 조사 요약은 자유롭게 다시 열람할 수 있다.
+    # 챕터 5 조사 기록 정리
     st.caption(CHAPTER)
     st.title(TITLE)
     st.subheader("조사 기록 정리")
