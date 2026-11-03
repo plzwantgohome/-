@@ -9,8 +9,9 @@ def show_dialogue(
     """모든 챕터에서 공통으로 사용하는 미연시형 대화 화면."""
 
     # 챕터 1 스킵 버튼의 크기와 디자인
+
     st.html("""
-   
+    <style>
     /* 배경 영역 높이 유지 및 스크롤 방지 */
     div.st-key-vn_background {
         min-height: 280px !important;
@@ -19,15 +20,17 @@ def show_dialogue(
         overflow: visible !important;
     }
 
-    <style>
+    /* 스킵 버튼 오른쪽 정렬 */
     div[class*="st-key-story_skip_"] {
         display: flex !important;
         justify-content: flex-end !important;
+        width: 100% !important;
     }
 
     div[class*="st-key-story_skip_"] button {
         width: fit-content !important;
         min-width: 0 !important;
+        max-width: 100% !important;
         height: 28px !important;
         min-height: 28px !important;
         padding: 0 6px !important;
@@ -47,6 +50,7 @@ def show_dialogue(
     }
     </style>
     """)
+
 
     st.caption(chapter)
     st.title(title)
