@@ -91,9 +91,8 @@ CASE_NOTES = {
 }
 
 
-
-def show_lines(lines, line_key, location, skip_target=None):
-    """대사를 한 줄씩 보여주고 종료 여부를 반환한다."""
+def show_lines(lines, line_key, location):
+    """대사를 한 줄씩 보여주고, 전부 확인했으면 True를 반환한다."""
     if line_key not in st.session_state:
         st.session_state[line_key] = 0
 
@@ -102,28 +101,9 @@ def show_lines(lines, line_key, location, skip_target=None):
         return True
 
     speaker, words = lines[index]
+    show_dialogue(CHAPTER, TITLE, location, speaker, words)
 
-    show_dialogue(
-        CHAPTER,
-        TITLE,
-        location,
-        speaker,
-        words,
-        skip_key=(
-            "chapter4_skip_" + line_key
-            if skip_target is not None else None
-        ),
-        skip_changes=(
-            {"chapter4_phase": skip_target}
-            if skip_target is not None else None
-        )
-    )
-
-    if st.button(
-        "다음 ▶",
-        key=line_key + "_next",
-        use_container_width=True
-    ):
+    if st.button("다음 ▶", key=line_key + "_next", use_container_width=True):
         st.session_state[line_key] += 1
         st.rerun()
 
@@ -237,18 +217,15 @@ def show_chapter4():
 
     phase = st.session_state["chapter4_phase"]
 
-
     if phase == "intro":
         if show_lines(
             INTRO_LINES,
             "chapter4_intro_line",
-            "학교 본관 · 자료 열람실",
-            skip_target="photo"
+            "학교 본관 · 자료 열람실"
         ):
             st.session_state["chapter4_phase"] = "photo"
             st.rerun()
         return
-
 
     if phase == "photo":
         show_photo_investigation()
@@ -258,18 +235,15 @@ def show_chapter4():
         show_location_investigation()
         return
 
-
     if phase == "ending":
         if show_lines(
             ENDING_LINES,
             "chapter4_ending_line",
-            "학교 본관 · 공용 인쇄실",
-            skip_target="finished"
+            "학교 본관 · 공용 인쇄실"
         ):
             st.session_state["chapter4_phase"] = "finished"
             st.rerun()
         return
-
 
     st.caption(CHAPTER)
     st.title(TITLE)
