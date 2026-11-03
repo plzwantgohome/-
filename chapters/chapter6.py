@@ -333,4 +333,11 @@ def show_chapter6():
         "챕터 6 조사를 완료했습니다. "
         "다음은 유출 사진에 남은 정보입니다."
     )
-
+    
+    if st.button(
+        "챕터 7로 ▶",
+        key="chapter6_to_chapter7",
+        use_container_width=True
+    ):
+        st.session_state["page"] = "chapter7"
+        st.rerun() 
