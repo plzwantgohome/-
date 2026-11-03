@@ -20,17 +20,23 @@ def show_dialogue(
         overflow: visible !important;
     }
 
-    /* 스킵 버튼 오른쪽 정렬 */
-    div[class*="st-key-story_skip_"] {
+
+    /* 스킵 버튼 영역 */
+    .st-key-vn_skip_area {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .st-key-vn_skip_area [data-testid="stButton"] {
         display: flex !important;
         justify-content: flex-end !important;
         width: 100% !important;
     }
 
-    div[class*="st-key-story_skip_"] button {
-        width: fit-content !important;
+    .st-key-vn_skip_area button {
+        width: 90px !important;
         min-width: 0 !important;
-        max-width: 100% !important;
+        max-width: 90px !important;
         height: 28px !important;
         min-height: 28px !important;
         padding: 0 6px !important;
@@ -39,6 +45,16 @@ def show_dialogue(
         box-shadow: none !important;
         color: #aaaaaa !important;
     }
+
+    .st-key-vn_skip_area button p {
+        font-size: 13px !important;
+        white-space: nowrap !important;
+    }
+
+    .st-key-vn_skip_area button:hover {
+        color: #ffffff !important;
+    }
+
 
     div[class*="st-key-story_skip_"] button p {
         font-size: 13px !important;
@@ -73,15 +89,17 @@ def show_dialogue(
                 with left:
                     st.caption(location)
 
-                with right:
-                    if st.button(
-                        "스킵 ⏭",
-                        key=skip_key,
-                        type="tertiary"
-                    ):
 
-                        st.session_state.update(skip_changes)
-                        st.rerun()
+                with right:
+                    with st.container(key="vn_skip_area"):
+                        if st.button(
+                            "스킵 ⏭",
+                            key=skip_key,
+                            type="tertiary"
+                        ):
+                            st.session_state.update(skip_changes)
+                            st.rerun()
+
 
             else:
                 st.caption(location)
