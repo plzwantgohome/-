@@ -90,9 +90,8 @@ CASE_NOTES = {
     "아직 밝혀지지 않은 점": "시험지가 인쇄실에 있었던 이유, 촬영자, 프린터 사용 시각은 아직 확인되지 않음.",
 }
 
-
-def show_lines(lines, line_key, location):
-    """대사를 한 줄씩 보여주고, 전부 확인했으면 True를 반환한다."""
+def show_lines(lines, line_key, location, skip_target=None):
+    """대사를 한 줄씩 보여주고 종료 여부를 반환한다."""
     if line_key not in st.session_state:
         st.session_state[line_key] = 0
 
@@ -101,16 +100,32 @@ def show_lines(lines, line_key, location):
         return True
 
     speaker, words = lines[index]
-    show_dialogue(CHAPTER, TITLE, location, speaker, words)
 
-    if st.button("다음 ▶", key=line_key + "_next", use_container_width=True):
+    show_dialogue(
+        CHAPTER,
+        TITLE,
+        location,
+        speaker,
+        words,
+        skip_key=(
+            "chapter4_skip_" + line_key
+            if skip_target is not None else None
+        ),
+        skip_changes=(
+            {"chapter4_phase": skip_target}
+            if skip_target is not None else None
+        )
+    )
+
+    if st.button(
+        "다음 ▶",
+        key=line_key + "_next",
+        use_container_width=True
+    ):
         st.session_state[line_key] += 1
         st.rerun()
 
     return False
-
-
-
 
 def show_photo_investigation():
     """사진의 세 부분을 모두 조사한 뒤 다음 단계로 진행한다."""
@@ -242,7 +257,8 @@ def show_chapter4():
         if show_lines(
             INTRO_LINES,
             "chapter4_intro_line",
-            "학교 본관 · 자료 열람실"
+            "학교 본관 · 자료 열람실",
+            skip_target="photo"
         ):
             st.session_state["chapter4_phase"] = "photo"
             st.rerun()
@@ -260,7 +276,8 @@ def show_chapter4():
         if show_lines(
             ENDING_LINES,
             "chapter4_ending_line",
-            "학교 본관 · 공용 인쇄실"
+            "학교 본관 · 공용 인쇄실",
+            skip_target="finished"
         ):
             st.session_state["chapter4_phase"] = "finished"
             st.rerun()
