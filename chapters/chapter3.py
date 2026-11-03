@@ -178,7 +178,10 @@ def show_chapter3():
             st.rerun()
         return
 
-
+    if phase == "records":
+        show_records()
+        return
+    
     if phase == "ending":
         if show_lines(
             ENDING_LINES,
