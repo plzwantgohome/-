@@ -9,38 +9,40 @@ def show_dialogue(
     """모든 챕터에서 공통으로 사용하는 미연시형 대화 화면."""
 
     # 챕터 1 스킵 버튼의 크기와 디자인
+
     st.html("""
     <style>
-    div[class*="st-key-chapter"][class*="_skip_"] {       
-        margin-left: auto !important;
-        display: block !important;
+    div[class*="st-key-chapter"][class*="_skip_"] {
+        display: flex !important;
         justify-content: flex-end !important;
     }
-    
-    div[class*="st-key-chapter"][class*="_skip_"] {
+
+    div[class*="st-key-chapter"][class*="_skip_"] button {
         width: fit-content !important;
         min-width: 0 !important;
         height: 28px !important;
         min-height: 28px !important;
         padding: 0 6px !important;
+        margin-left: auto !important;
+        display: block !important;
         background: transparent !important;
         border: 1px solid #444444 !important;
         border-radius: 5px !important;
         box-shadow: none !important;
         color: #aaaaaa !important;
-
     }
-    
-    div[class*="st-key-chapter"][class*="_skip_"] {
+
+    div[class*="st-key-chapter"][class*="_skip_"] button p {
         font-size: 13px !important;
         white-space: nowrap !important;
     }
-    
-    div[class*="st-key-chapter"][class*="_skip_"] {
+
+    div[class*="st-key-chapter"][class*="_skip_"] button:hover {
         color: #ffffff !important;
     }
     </style>
     """)
+
 
     st.caption(chapter)
     st.title(title)
