@@ -348,3 +348,11 @@ def show_chapter7():
         "챕터 7 조사를 완료했습니다. "
         "다음은 사건의 진실을 밝히는 마지막 추리입니다."
     )
+   
+    if st.button(
+        "챕터 8로 ▶",
+        key="chapter7_to_chapter8",
+        use_container_width=True
+    ):
+        st.session_state["page"] = "chapter8"
+        st.rerun() 
