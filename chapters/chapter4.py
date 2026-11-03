@@ -196,15 +196,17 @@ def show_location_investigation():
             st.session_state["chapter4_location_line"] = 0
             st.rerun()
 
-        # 네 장소를 모두 조사해야 마지막 장면으로 이동
-        if len(checked) == len(LOCATIONS):
+
+        # 공용 인쇄실을 발견하면 다음 장면으로 이동 가능
+        if "공용 인쇄실" in checked:
             if st.button(
-                "조사 완료 · 다음 장면 ▶",
+                "촬영 장소 확인 · 다음 장면 ▶",
                 key="chapter4_to_ending",
                 use_container_width=True
             ):
                 st.session_state["chapter4_phase"] = "ending"
                 st.rerun()
+
 
         return
 
