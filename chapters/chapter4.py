@@ -301,6 +301,6 @@ def show_chapter4():
         "다음 챕터에서는 공용 프린터 사용 기록을 확인합니다."
     )
  
-    if st.button("챕터 5로 이동 ▶", key="chapter4_to_chapter5", use_container_width=True):
-        st.session_state["page"] = "chapter5"
-        st.rerun()
+if st.button("챕터 5로 이동 ▶", key="chapter4_to_chapter5", use_container_width=True):
+    st.session_state["page"] = "chapter5"
+    st.rerun()
