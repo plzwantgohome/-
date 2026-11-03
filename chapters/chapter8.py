@@ -373,14 +373,14 @@ def show_finished(outcome):
             st.session_state["chapter8_phase"] = "suspect"
             st.rerun()
 
-    # 새로운 시도를 위한 초기화
-    if st.button(
-        "챕터 8 처음부터 다시 하기 ↻",
-        key="chapter8_restart",
-        use_container_width=True
-    ):
-        reset_chapter8()
-
+    # 실패 엔딩에서만 다시 시작할 수 있다.
+    if outcome == "false":
+        if st.button(
+            "챕터 8 처음부터 다시 하기 ↻",
+            key="chapter8_restart",
+            use_container_width=True
+        ):
+            reset_chapter8()
 
 def show_chapter8():
     """마지막 면담부터 최종 추리와 분기 엔딩까지 관리한다."""
