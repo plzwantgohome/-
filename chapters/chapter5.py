@@ -236,7 +236,7 @@ def show_chapter5():
             INTRO_LINES,
             "chapter5_intro_line",
             "공용 인쇄실",
-            skip_target="finished"
+            skip_target="records"
         ):
             st.session_state["chapter5_phase"] = "records"
             st.rerun()
@@ -258,7 +258,7 @@ def show_chapter5():
             TEACHER_LINES,
             "chapter5_teacher_line",
             "학교 본관 · 교무실",
-            skip_target="finished"
+            skip_target="ending"
         ):
             st.session_state["chapter5_phase"] = "ending"
             st.rerun()
