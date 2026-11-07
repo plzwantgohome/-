@@ -1,5 +1,42 @@
 
 import streamlit as st
+import io
+import math
+import struct
+import wave
+
+
+@st.cache_data
+def make_phone_ring():
+    """전화벨 소리를 코드로 생성한다."""
+    sample_rate = 16000
+    duration = 1.8
+    samples = bytearray()
+
+    for i in range(int(sample_rate * duration)):
+        t = i / sample_rate
+        position = t % 0.9
+
+        if position < 0.6:
+            fade = min(1, position / 0.02, (0.6 - position) / 0.02)
+            sound = 0.12 * fade * (
+                math.sin(2 * math.pi * 440 * t)
+                + math.sin(2 * math.pi * 480 * t)
+            )
+        else:
+            sound = 0
+
+        samples.extend(struct.pack("<h", int(sound * 32767)))
+
+    buffer = io.BytesIO()
+
+    with wave.open(buffer, "wb") as audio:
+        audio.setnchannels(1)
+        audio.setsampwidth(2)
+        audio.setframerate(sample_rate)
+        audio.writeframes(samples)
+
+    return buffer.getvalue()
 from ui import show_dialogue
 
 
@@ -109,7 +146,13 @@ def show_chapter1():
                 "chapter1_step": len(story)
             }
         )
-
+    # 첫 번째 대사에서만 전화벨 재생
+    if step == 0:
+        st.audio(
+            make_phone_ring(),
+            format="audio/wav",
+            autoplay=True
+        )
 
         if words == "나는 잠시 생각에 잠겼다.":
             button_text = "의뢰를 수락한다"
