@@ -140,7 +140,11 @@ def show_lines(lines, line_key, location, skip_target=None):
         show_dialogue(
             CHAPTER, TITLE, location, speaker, words,
             skip_key=line_key + "_skip_button",
-            skip_changes={"chapter7_phase": skip_target},
+            skip_changes=(
+                {line_key: len(lines)}
+                if skip_target == "line_end"
+                else {"chapter7_phase": skip_target}
+),
         )
 
     if st.button(
@@ -213,7 +217,7 @@ def show_people():
         VERIFICATION[selected],
         "chapter7_verify_line",
         "학교 본관 · 기록 대조",
-        skip_target="finished"
+        skip_target="line_end"
     ):
         if selected not in checked:
             st.session_state["chapter7_checked_people"] = checked + [selected]
@@ -289,7 +293,7 @@ def show_chapter7():
             INTRO_LINES,
             "chapter7_intro_line",
             "학교 본관 · 자료 열람실",
-            skip_target="finished"
+            skip_target="people"
         ):
             st.session_state["chapter7_phase"] = "people"
             st.rerun()
