@@ -258,7 +258,7 @@ def show_chapter5():
             TEACHER_LINES,
             "chapter5_teacher_line",
             "학교 본관 · 교무실",
-            skip_target="ending"
+            skip_target="finished"
         ):
             st.session_state["chapter5_phase"] = "ending"
             st.rerun()
