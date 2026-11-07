@@ -134,7 +134,6 @@ def show_chapter1():
 
         location, speaker, words = story[step]
 
-
         show_dialogue(
             "CHAPTER 01",
             "낯선 의뢰",
@@ -146,13 +145,14 @@ def show_chapter1():
                 "chapter1_step": len(story)
             }
         )
-    # 첫 번째 대사에서만 전화벨 재생
-    if step == 0:
-        st.audio(
-            make_phone_ring(),
-            format="audio/wav",
-            autoplay=True
-        )
+
+        # 첫 번째 대사에서만 전화벨 재생
+        if step == 0:
+            st.audio(
+                make_phone_ring(),
+                format="audio/wav",
+                autoplay=True
+            )
 
         if words == "나는 잠시 생각에 잠겼다.":
             button_text = "의뢰를 수락한다"
@@ -170,7 +170,6 @@ def show_chapter1():
             st.rerun()
 
         return
-
     # 2. 사건 기록 확인
     if step == len(story):
 
@@ -264,15 +263,15 @@ def show_chapter1():
         return
 
 
-        # 3. 사건 기록 확인 이후
-        ending_step = step - len(story) - 1
+            # 3. 사건 기록 확인 이후
+    ending_step = step - len(story) - 1
 
-        # 마지막 대사의 인덱스가 유효한지 확인
-        if not (0 <= ending_step < len(ending)):
-            return
+    # 잘못된 인덱스로 마지막 대사에 접근하지 않도록 확인
+    if not (0 <= ending_step < len(ending)):
+        st.session_state["chapter1_step"] = len(story) + 1
+        st.rerun()
 
-        speaker, words = ending[ending_step]
-
+    speaker, words = ending[ending_step]
 
     show_dialogue(
         "CHAPTER 01",
@@ -290,9 +289,7 @@ def show_chapter1():
         }
     )
 
-
     if ending_step < len(ending) - 1:
-
         if st.button(
             "다음 →",
             key="chapter1_ending_next",
@@ -302,7 +299,6 @@ def show_chapter1():
             st.rerun()
 
     else:
-
         st.caption("다음 챕터: 다섯 명의 증언")
 
         if st.button(
