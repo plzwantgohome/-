@@ -186,8 +186,9 @@ def show_guess():
     lives = st.session_state["chapter8_lives"]
 
     st.caption(f"남은 추리 기회: {lives} / {MAX_LIVES}")
-    show_case_notes()
 
+    if lives < MAX_LIVES:
+        show_case_notes()
     # 첫 번째 질문 · 범인
     if phase == "suspect":
         show_dialogue(
