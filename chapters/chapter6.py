@@ -226,17 +226,17 @@ def show_compare():
         st.rerun()
 
     if st.session_state["chapter6_wrong_comparison"]:
-    st.warning(
-        "두 기록이 서로 반대되는 내용을 말하는지 다시 확인하자."
-    )
+        st.warning(
+            "두 기록이 서로 반대되는 내용을 말하는지 다시 확인하자."
+        )
 
-    if st.button(
-        "기록 다시 보기",
-        key="chapter6_back_to_records",
-        use_container_width=True
-    ):
-        st.session_state["chapter6_phase"] = "records"
-        st.rerun()
+        if st.button(
+            "기록 다시 보기",
+            key="chapter6_back_to_records",
+            use_container_width=True
+        ):
+            st.session_state["chapter6_phase"] = "records"
+            st.rerun()
 
 
 def show_chapter6():
