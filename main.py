@@ -16,7 +16,7 @@ st.set_page_config(
     page_title="시험 자료 유출 사건",
     page_icon="🔍",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 
