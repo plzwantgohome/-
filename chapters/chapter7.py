@@ -259,13 +259,13 @@ def show_judgment():
             "의심스러운 행동과 범행의 증거를 구별해야 해. 다시 생각해 보자."
         )
 
-    if st.button(
-        "재조사 기록 다시 보기",
-        key="chapter7_back_to_people",
-        use_container_width=True
-    ):
-        st.session_state["chapter7_phase"] = "people"
-        st.rerun()
+        if st.button(
+            "재조사 기록 다시 보기",
+            key="chapter7_back_to_people",
+            use_container_width=True
+        ):
+            st.session_state["chapter7_phase"] = "people"
+            st.rerun()
 
 
 def show_chapter7():
