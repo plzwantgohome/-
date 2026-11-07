@@ -270,6 +270,7 @@ if (
         "유출 사진의 촬영 시각 정보 확인 [이미지 사본]"
     )
 
+
 # =========================
 # 챕터 8 · 마지막 면담과 증거
 # =========================
@@ -277,21 +278,15 @@ if (
 phase8 = st.session_state.get("chapter8_phase", "intro")
 verify8 = st.session_state.get("chapter8_verify_line", 0)
 
-# 마지막 면담을 완료했는지 확인
-interview_completed = (
-    phase8 == "verify"
-    or (
-        phase8 in (
-            "suspect", "place", "evidence", "confirm",
-            "retry", "true_ending", "false_ending",
-            "finished_true", "finished_false", "skipped"
-        )
-        and "chapter8_verify_line" in st.session_state
-    )
+# 혜린과의 면담이 끝난 이후 단계
+interview_completed = phase8 in (
+    "verify", "suspect", "place", "evidence", "confirm",
+    "retry", "true_ending", "false_ending",
+    "finished_true", "finished_false", "skipped"
 )
 
-# 혜린의 마지막 면담 기록
 if interview_completed:
+    # 혜린의 마지막 면담
     add(
         8, "증언",
         "혜린의 마지막 면담",
@@ -301,17 +296,26 @@ if interview_completed:
         "시험지 마지막 문제에 그래프가 있었다고 언급했다."
     )
 
-# 담당 교사가 마지막 문제를 확인한 후 증거 추가
-if verify8 >= 4:
+    # 공개되지 않은 시험지 정보
+    # 교사 확인 전에는 의문점으로 기록
+    if phase8 == "verify" and verify8 < 4:
+        evidence_content = (
+            "혜린은 공개된 사진에 없는 마지막 문제의 그래프를 "
+            "언급했다. 공개된 사진에는 1~3번 문제만 담겨 있어 "
+            "혜린이 해당 내용을 어떻게 알았는지 확인이 필요하다."
+        )
+    else:
+        evidence_content = (
+            "혜린은 공개된 사진에 없는 마지막 문제의 그래프를 "
+            "언급했다. 담당 교사는 실제로 해당 문제가 존재하며 "
+            "유출 사진에는 나오지 않는다고 확인했다."
+        )
+
     add(
         8, "증거",
         "공개되지 않은 시험지 정보",
-        "혜린은 공개된 사진에 없는 마지막 문제의 그래프를 "
-        "언급했다. 담당 교사는 실제로 해당 문제가 존재하며 "
-        "유출 사진에는 나오지 않는다고 확인했다."
+        evidence_content
     )
-
-
 
 # =========================
 # 추리 노트 화면
