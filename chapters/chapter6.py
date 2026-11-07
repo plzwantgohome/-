@@ -226,9 +226,9 @@ def show_compare():
         st.rerun()
 
     if st.session_state["chapter6_wrong_comparison"]:
-        st.warning(
-            "두 기록이 서로 반대되는 내용을 말하는지 다시 확인하자."
-        )
+    st.warning(
+        "두 기록이 서로 반대되는 내용을 말하는지 다시 확인하자."
+    )
 
     if st.button(
         "기록 다시 보기",
