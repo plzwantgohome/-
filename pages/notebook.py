@@ -31,7 +31,22 @@ def add(chapter, kind, title, content):
 def add_time(order, clock, content):
     timeline.append((order, clock, content))
 
+# =========================
+# 프롤로그 기록
+# =========================
 
+if st.session_state.get("prologue_step", 0) >= 4:
+    add(
+        0,
+        "증거",
+        "익명 게시판 게시글",
+        "00:17에 시험지 일부가 담긴 사진이 게시되었으며, "
+        "약 3분 뒤 삭제되었다. 작성자는 확인되지 않았다."
+    )
+
+    add_time(90, "00:17", "시험지 사진 게시 [게시물]")
+    add_time(100, "00:20", "게시글 삭제 [게시물]")
+    
 # =========================
 # 챕터 1 · 사건 관련 서류철
 # =========================
