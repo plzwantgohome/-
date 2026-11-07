@@ -264,10 +264,14 @@ def show_chapter1():
         return
 
 
-    # 3. 사건 기록 확인 이후
-    ending_step = step - len(story) - 1
+        # 3. 사건 기록 확인 이후
+        ending_step = step - len(story) - 1
 
-    speaker, words = ending[ending_step]
+        # 마지막 대사의 인덱스가 유효한지 확인
+        if not (0 <= ending_step < len(ending)):
+            return
+
+        speaker, words = ending[ending_step]
 
 
     show_dialogue(
