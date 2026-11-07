@@ -261,7 +261,7 @@ def show_chapter6():
             INTRO_LINES,
             "chapter6_intro_line",
             "학교 본관 · 자료 열람실",
-            skip_target="finished"
+            skip_target="records"
         ):
             st.session_state["chapter6_phase"] = "records"
             st.rerun()
