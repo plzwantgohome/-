@@ -405,7 +405,7 @@ def show_chapter8():
             INTRO_LINES,
             "chapter8_intro_line",
             "학교 본관 · 자료 열람실",
-            skip_target="skipped"
+            skip_target="interview"
         ):
             st.session_state["chapter8_phase"] = "interview"
             st.rerun()
@@ -430,7 +430,7 @@ def show_chapter8():
             VERIFY_LINES,
             "chapter8_verify_line",
             "학교 본관 · 자료 열람실",
-            skip_target="skipped"
+            skip_target="suspect"
         ):
             st.session_state["chapter8_phase"] = "suspect"
             st.rerun()
